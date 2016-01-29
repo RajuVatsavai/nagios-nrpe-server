@@ -31,7 +31,6 @@
 - include: packages-Solaris.yml
   when: "ansible_os_family == 'Solaris'"
   
-# Purge old config
 - name: purge nrpe folder contents
   file: >
     path="{{ nagios_nrpe_server_dir }}/{{ item }}"
@@ -39,7 +38,6 @@
   with_items: contents.stdout_lines
   when: item not in nagios_nrpe_managed_files
 
-# Create our config
 - name: Create nrpe.cfg from template
   template: >
     src="nrpe.cfg.j2"
@@ -51,7 +49,6 @@
   shell: ls -1 {{ nagios_nrpe_server_dir }}
   register: contents
 
-# Create nrpe_ansible.cfg
 - name: Create nrpe_ansible.cfg from template
   template: >
     src="nrpe_ansible.cfg.j2"
