@@ -12,10 +12,6 @@ provisioner:
   idempotency_test: true
   extra_vars: []
 
-transport:
-  username: ubuntu
-  ssh_key: "<%= "#{Dir.home}/.ssh/test_key" %>"
-
 verifier:
   ruby_bindir: '/usr/bin'
 

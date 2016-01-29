@@ -31,6 +31,11 @@
 - include: packages-Solaris.yml
   when: "ansible_os_family == 'Solaris'"
   
+- name: test if nrpe folder is empty or not
+  shell: ls -1 {{ nagios_nrpe_server_dir }}
+  register: contents
+  changed_when: "contents.rc != 0"
+
 - name: purge nrpe folder contents
   file: >
     path="{{ nagios_nrpe_server_dir }}/{{ item }}"
@@ -44,10 +49,6 @@
     dest="{{ nagios_nrpe_server_dir }}/nrpe.cfg"
     owner=root group=root mode=0644
   notify: restart nagios-nrpe-server
-
-- name: test if nrpe folder is empty or not
-  shell: ls -1 {{ nagios_nrpe_server_dir }}
-  register: contents
 
 - name: Create nrpe_ansible.cfg from template
   template: >
