@@ -79,4 +79,4 @@
 
 # Ensure NRPE server is running and will start at boot
 - name: Ensure NRPE server is running
-  service: name="{{ nagios_nrpe_server_service }}" state=started enabled=yes
+  service: name="{{ nagios_nrpe_server_service }}" enabled=yes state=started

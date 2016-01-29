@@ -1,0 +1,6 @@
+# This Gemfile exists to work around a bug in kitchen-ansible
+# wherein ruby 1.9.3 is installed but serverspec wants to install
+# a version of net-ssh that requires ruby 2+
+source 'https://rubygems.org'
+
+gem 'net-ssh', '~> 2.9.2'
