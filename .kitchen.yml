@@ -20,6 +20,10 @@ platforms:
     driver_config:
       box: ubuntu/trusty64
       box_url: https://atlas.hashicorp.com/ubuntu/trusty64
+  - name: centos72
+    driver_config:
+      box: puppetlabs/centos-7.2-64-nocm
+      box_url: https://atlas.hashicorp.com/puppetlabs/centos-7.2-64-nocm
 
 suites:
   - name: default
