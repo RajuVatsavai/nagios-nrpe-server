@@ -7,27 +7,14 @@ I've only selected certain platforms that I know this 100% works on, but it shou
 
 Currently supports:
 
- * Debian
-   - Squeeze
-   - Wheezy
  * Ubuntu
-   - Raring
-   - Saucy
+   - Precise
    - Trusty
- * RedHat
-   - At least 6 onwards
- * Arch Linux
-   - All
- * Solaris
-   - At least 11.1
-
-Requirements
-------------
-
-RedHat based OS's must have the EPEL repo.
+ * CentOS
+   - 7.2
 
 Role Information
---------------
+----------------
 
 This role gives you the ability to deploy plugins on a global and per-server basis. This can be done by putting plugins into [`files/plugins/global`](files/plugins/global) or by creating a folder in `files/plugins/` that is the servers [FQDN](http://en.wikipedia.org/wiki/Fully_qualified_domain_name).
 
@@ -42,50 +29,30 @@ Role Variables
 
 These are OS specific and likely wont want to be changed
 
-Debian:
+Ubuntu:
 
   * *nagios_nrpe_server_pid*: /var/run/nagios/nrpe.pid
   * *nagios_nrpe_server_user*: nagios
   * *nagios_nrpe_server_group*: nagios
   * *nagios_nrpe_server_service*: nagios-nrpe-server
   * *nagios_nrpe_server_plugins_dir*: /usr/lib/nagios/plugins
-  * *nagios_server_dir*: /etc/nagios
   * *nagios_nrpe_server_dir*: /etc/nrpe.d
-  * *nagios_nrpe_managed_files*: '\.cfg'
+  * *nagios_nrpe_managed_files: ['nrpe.cfg']
   
-RedHat:
+CentOS:
 
   * *nagios_nrpe_server_pid*: /var/run/nrpe/nrpe.pid
   * *nagios_nrpe_server_user*: nrpe
   * *nagios_nrpe_server_group*: nrpe
   * *nagios_nrpe_server_repo_redhat*: epel
   * *nagios_nrpe_server_service*: nrpe
-  * *nagios_server_dir*: /etc/nagios
-  * *nagios_nrpe_server_dir*: /etc/nrpe.d
-  * *nagios_nrpe_managed_files*: '\.cfg'
-
-Arch Linux:
-  * *nagios_nrpe_server_pid*: /var/run/nrpe/nrpe.pid
-  * *nagios_nrpe_server_user*: 31
-  * *nagios_nrpe_server_group*: 31
-  * *nagios_nrpe_server_service*: nrpe
-  * *nagios_nrpe_server_plugins_dir*: /usr/lib/monitoring-plugins
-  * *nagios_server_dir*: /etc/nagios
-  * *nagios_nrpe_server_dir*: /etc/nrpe.d
-  * *nagios_nrpe_managed_files*: '\.cfg'
-
-Solaris:
-  * *nagios_nrpe_server_dir*: /etc/opt/csw
-  * *nagios_nrpe_server_group*: nagios
-  * *nagios_nrpe_server_pid*: /var/run/nrpe.pid
-  * *nagios_nrpe_server_plugins_dir*: /opt/csw/libexec/nagios-plugins
-  * *nagios_nrpe_server_service*: svc:/network/cswnrpe:default
-  * *nagios_nrpe_server_user*: nagios
+  * *nagios_nrpe_server_dir*: /etc/nagios
+  * *nagios_nrpe_managed_files*: ['nrpe.cfg']
 
 Dependencies
 ------------
 
-N/A
+RedHat based OS's must have the EPEL repo.
 
 Example Playbook
 ----------------
@@ -93,15 +60,13 @@ Example Playbook
 ```yaml
 - hosts: servers
   roles:
-     - franlr.nagios-nrpe-server
+     - gregfaust.nagios_nrpe
    vars:
-     nagios_nrpe_server_allowed_hosts: 
+     nagios_nrpe_server_allowed_hosts:
        - 192.168.0.1
        - 127.0.0.1
      nagios_nrpe_server_bind_address: 127.0.0.1
      nagios_nrpe_server_port: 5666
-     nagios_nrpe_server_check:
-       check_load: 'check_load -w 8,5,2 -c 10,8,3'
 ```
 
 License

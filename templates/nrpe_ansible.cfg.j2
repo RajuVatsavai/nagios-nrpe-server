@@ -1,7 +1,0 @@
-#{{ ansible_managed }}
-
-# Configs
-{% for directive, value in nagios_nrpe_server_check.iteritems() if nagios_nrpe_server_check|length > 0 %}
-command[{{ directive }}]={{ nagios_nrpe_server_plugins_dir }}/{{ value }}
-{% endfor %}
-

@@ -50,13 +50,6 @@
     owner=root group=root mode=0644
   notify: restart nagios-nrpe-server
 
-- name: Create nrpe_ansible.cfg from template
-  template: >
-    src="nrpe_ansible.cfg.j2"
-    dest="{{ nagios_nrpe_server_dir }}/nrpe_ansible.cfg"
-    owner=root group=root mode=0644
-  notify: restart nagios-nrpe-server
-
 # Sync our plugins
 - name: Install global plugins
   copy: >
